@@ -1,9 +1,14 @@
 
 <html>
 <head>
-
-  
-  <script type="text/javascript">
+</head>
+<body>
+  <div id="results"><div>
+  <form>
+    <input type="button" value="test" onclick="rTest()">
+  </form>
+    
+<script type="text/javascript">
   
     function testChrome() {
   const results = {};
@@ -82,16 +87,10 @@
 };
   
     
-    function rtest() {
+    function rTest() {
       var results = testChrome();
       document.getElementById("results").innerHTML = JSON.stringify(results);
     };
   </script>
-</head>
-<body>
-  <div id="results"><div>
-  <form>
-    <input type="button" value="test" onclick="rtest()">
-  </form>
 </body>
 </html>
