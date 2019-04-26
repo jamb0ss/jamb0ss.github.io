@@ -135,12 +135,15 @@ function testHeadlessChrome() {
 	}
 };
 
+let tests = [testAttr1, testHeadlessChrome];
+	
 ul = document.getElementById('content');
-for (fn in [testAttr1, testHeadlessChrome]) {
-	let res = fn();
+for (n in tests) {
+	let test = tests[n]
+	let res = test();
 	if (res) {
 		let li = document.createElement('li');
-		li.innerHtml = fn.name + ' :: ' + res;
+		li.innerHtml = test.name + ' :: ' + res;
 		ul.appendChild(li);
 	}
 };
