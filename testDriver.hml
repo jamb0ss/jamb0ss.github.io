@@ -6,8 +6,26 @@
 
 <body>
 
+
 <div>
+	<ul>
+		<li><a href="https://browserleaks.com/">https://browserleaks.com/</a></li>
+		<li><a href="https://whoer.net/">https://whoer.net/</a></li>
+		<li><a href="http://dev.jeffersonscher.com/jstest.asp">http://dev.jeffersonscher.com/jstest.asp</a></li>
+		<li><a href="http://dev.jeffersonscher.com/resolution.html">http://dev.jeffersonscher.com/resolution.html</a></li>
+		<li><a href="firefoxFullscreenLeak.html">firefoxFullscreenLeak</a></li>
+		<li><a href="https://demos.traudt.xyz/css/media/index.html">https://demos.traudt.xyz/css/media/index.html</a></li>
+		<li><a href="https://kkapsner.github.io/CanvasBlocker/test/detectionTest.html">https://kkapsner.github.io/CanvasBlocker/test/detectionTest.html</a></li>
+		<li><a href=""></a></li>
+	</ul>
+
+</div>
+
+
+<div>
+	<font color="red">
 	<ul id="content"><\ul>
+	</font>
 </div>
 
 <script type="text/javascript">
