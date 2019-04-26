@@ -1,14 +1,57 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <script type="text/javascript">
-    function showWindow(){
-      javascript:(alert(document.documentElement.outerHTML));
-    }
-  </script>
+<style>
+html {
+	height: 100%;
+}
+body {
+	margin: 0;
+	height: 100%;
+    border: 1px solid black;
+}
+main {
+	background: #E3F6CE;
+}
+.content {
+	height: 500px;
+}
+footer {
+	background: #F7BE81;
+   	position:fixed;
+    left:0px;
+   	bottom:0px;
+    height:30px;
+   	width:100%;
+}
+</style>
+
+<!-- <meta http-equiv="refresh" content="1"> -->
 </head>
 <body>
-  <form>
-    <input type="button" value="Show outerHTML" onclick="showWindow()">
-  </form>
+<script>
+function showCoords(event) {
+    var x = event.clientX;
+    var y = event.clientY;
+	var coor = "X coords: " + x + ", Y coords: " + y + ', pageWidth: ' +  window.innerWidth  + ', pageHeight: '  + window.innerHeight + ', XOffset: ' + window.pageXOffset  + ', YOffset: ' + window.pageYOffset + ', scrollWidth: ' + document.body.scrollWidth + ', scrollHeight: ' + document.body.scrollHeight;
+    document.getElementById("data").innerHTML = coor;
+}
+function clearCoor() {
+	document.getElementById("data").innerHTML = "";
+}
+</script>
+<main onmousemove="showCoords(event)" onmouseout="clearCoor()">
+	<div class="content">...</div>
+	<div class="content">...</div>
+	<div class="content">...</div>
+	<a href="#" target="_">link</a>
+	<div class="content">...</div>
+
+</main>
+
+<footer>
+	<span id="data"></span>
+</footer>
+
 </body>
 </html>
