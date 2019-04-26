@@ -125,7 +125,6 @@ function testHeadlessChrome() {
 				gotYou++;
 				return 'spooky';
 			}
-			console.debug(spooky);
 			return gotYou > 1;
 		}),
 	]) {
@@ -140,6 +139,7 @@ for (n in tests) {
 	let test = tests[n]
 	let res = test();
 	if (res) {
+		console.log(res);
 		let li = document.createElement('li');
 		li.innerHtml = test.name + ' :: ' + res;
 		ul.appendChild(li);
