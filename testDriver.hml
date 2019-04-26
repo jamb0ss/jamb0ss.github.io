@@ -1,0 +1,131 @@
+<html>
+
+<head>
+	<title>Test Webdriver</title>
+</head>
+
+<body>
+
+<div>
+	<ul id="content"><\ul>
+</div>
+
+<script type="text/javascript">
+
+function testAttr1() {
+    var documentDetectionKeys = [
+        "__webdriver_evaluate",
+        "__selenium_evaluate",
+        "__webdriver_script_function",
+        "__webdriver_script_func",
+        "__webdriver_script_fn",
+        "__fxdriver_evaluate",
+        "__driver_unwrapped",
+        "__webdriver_unwrapped",
+        "__driver_evaluate",
+        "__selenium_unwrapped",
+        "__fxdriver_unwrapped",
+    ];
+    var windowDetectionKeys = [
+        "_phantom",
+        "__nightmare",
+        "_selenium",
+        "callPhantom",
+        "callSelenium",
+        "_Selenium_IDE_Recorder",
+    ];
+    for (const windowDetectionKey in windowDetectionKeys) {
+        const windowDetectionKeyValue = windowDetectionKeys[windowDetectionKey];
+        if (window[windowDetectionKeyValue]) {
+            return 'window.' + windowDetectionKeyValue;
+        }
+    };
+    for (const documentDetectionKey in documentDetectionKeys) {
+        const documentDetectionKeyValue = documentDetectionKeys[documentDetectionKey];
+        if (window['document'][documentDetectionKeyValue]) {
+            return 'window.document.' + documentDetectionKeyValue;
+        }
+    };
+    for (const documentKey in window['document']) {
+        if (documentKey.match(/\$[a-z]dc_/) && window['document'][documentKey]['cache_']) {
+            return 'window.document.' + documentKey;
+        }
+    }
+    if (window['external'] && window['external'].toString() && (window['external'].toString()['indexOf']('Sequentum') != -1)) return 'Sequentum';
+    if (window['document']['documentElement']['getAttribute']('selenium')) return 'window.document.documentElement.' + 'selenium';
+    if (window['document']['documentElement']['getAttribute']('webdriver')) return 'window.document.documentElement.' + 'webdriver';
+    if (window['document']['documentElement']['getAttribute']('driver')) return 'window.document.documentElement.' + 'driver';
+};
+
+
+function testHeadlessChrome() {
+	function test(name, fn) {
+		const detectionPassed = fn();
+		if (detectionPassed) return name;
+	}
+	for (const res in [
+		test('userAgent', _ => {
+			return /HeadlessChrome/.test(window.navigator.userAgent);
+		}),
+		test('navigator.webdriver present', _ => {
+			return 'webdriver' in navigator;
+		}),
+		test('window.chrome missing', _ => {
+			return /Chrome/.test(window.navigator.userAgent) && !window.chrome;
+		}),
+		test('permissions API', _ => {
+			const permissionStatus = navigator.permissions.query({name: 'notifications'});
+			return Notification.permission === 'denied' && permissionStatus.state === 'prompt';
+		}),
+		test('permissions API overriden', _ => {
+			const permissions = window.navigator.permissions;
+			if (permissions.query.toString() !== 'function query() { [native code] }') return true;
+			if (permissions.query.toString.toString() !== 'function toString() { [native code] }') return true;
+			if (
+				permissions.query.toString.hasOwnProperty('[[Handler]]') &&
+				permissions.query.toString.hasOwnProperty('[[Target]]') &&
+				permissions.query.toString.hasOwnProperty('[[IsRevoked]]')
+			) return true;
+			if (permissions.hasOwnProperty('query')) return true;
+		}),
+		test('navigator.plugins empty', _ => {
+			return navigator.plugins.length === 0;
+		}),
+		test('navigator.languages blank', _ => {
+			return navigator.languages === '';
+		}),
+		test('iFrame for fresh window object', _ => {
+			const iframe = document.createElement('iframe');
+			iframe.srcdoc = 'page intentionally left blank';
+			document.body.appendChild(iframe);
+			return iframe.contentWindow.navigator.plugins.length === 0
+		}),
+		test('toString', _ => {
+			let gotYou = 0;
+			const spooky = /./;
+			spooky.toString = function() {
+				gotYou++;
+				return 'spooky';
+			}
+			console.debug(spooky);
+			return gotYou > 1;
+		}),
+	] {
+		if (res) return res;
+	}
+};
+
+ul = document.getElementById('content');
+for (fn in [testAttr1, testHeadlessChrome]) {
+	let res = fn();
+	if (res) {
+		let li = document.createElement('li');
+		li.innerHtml = fn.name + ' :: ' + res;
+		ul.appendChild(li);
+	}
+};
+
+</script>
+
+</body>
+</html>
