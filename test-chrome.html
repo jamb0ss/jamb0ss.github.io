@@ -1,0 +1,18 @@
+
+<html>
+<head>
+  <script src="test-chrome.js"></script>
+  <script type="text/javascript">
+    fucntion test() {
+      var results = testChrome();
+      document.getElementById("results").innerHTML = JSON.stringify(results);
+    };
+  </script>
+</head>
+<body>
+  <div id="results"><div>
+  <form>
+    <input type="button" value="test" onclick="test()">
+  </form>
+</body>
+</html>
