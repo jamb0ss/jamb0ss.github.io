@@ -33,6 +33,7 @@ footer {
 function showCoords(event) {
     var x = event.clientX;
     var y = event.clientY;
+	console.log(x, y);
 	var coor = "X coords: " + x + ", Y coords: " + y + ', pageWidth: ' +  window.innerWidth  + ', pageHeight: '  + window.innerHeight + ', XOffset: ' + window.pageXOffset  + ', YOffset: ' + window.pageYOffset + ', scrollWidth: ' + document.body.scrollWidth + ', scrollHeight: ' + document.body.scrollHeight;
     document.getElementById("data").innerHTML = coor;
 }
@@ -41,6 +42,7 @@ function clearCoor() {
 }
 </script>
 <main onmousemove="showCoords(event)" onmouseout="clearCoor()">
+	<input type="text" name="text">
 	<div class="content">...</div>
 	<div class="content">...</div>
 	<div class="content">...</div>
