@@ -1,34 +1,49 @@
-                          _____                          
-                   _.+sd$$$$$$$$$bs+._                   
-               .+d$$$$$$$$$$$$$$$$$$$$$b+.               
-            .sd$$$$$$$P^*^T$$$P^*"*^T$$$$$bs.            
-          .s$$$$$$$$P*     `*' _._  `T$$$$$$$s.          
-        .s$$$$$$$$$P          ` :$;   T$$$$$$$$s.        
-       s$$$$$$$$$$;  db..+s.   `**'    T$$$$$$$$$s       
-     .$$$$$$$$$$$$'  `T$P*'             T$$$$$$$$$$.     
-    .$$$$$$$$$$$$P                       T$$$$$$$$$$.    
-   .$$$$$$$$$$$$$b                       `$$$$$$$$$$$.   
-  :$$$$$$$$$$$$$$$.                       T$$$$$$$$$$$;  
-  $$$$$$$$$P^*' :$$b.                     d$$$$$$$$$$$$  
- :$$$$$$$P'      T$$$$bs._               :P'`*^T$$$$$$$; 
- $$$$$$$P         `*T$$$$$b              '      `T$$$$$$ 
-:$$$$$$$b            `*T$$$s                      :$$$$$;
-:$$$$$$$$b.                                        $$$$$;
-$$$$$$$$$$$b.                                     :$$$$$$
-$$$$$$$$$$$$$bs.                                 .$$$$$$$
-$$$$$$$$$$$$$$$$$bs.                           .d$$$$$$$$
-:$$$$$$$$$$$$$P*"*T$$bs,._                  .sd$$$$$$$$$;
-:$$$$$$$$$$$$P     TP^**T$bss++.._____..++sd$$$$$$$$$$$$;
- $$$$$$$$$$$$b           `T$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 
- :$$$$$$$$$$$$b.           `*T$$P^*"*"*^^*T$$$$$$$$$$$$; 
-  $$$b       `T$b+                        :$$$$$$$BUG$$  
-  :$P'         `"'               ,._.     ;$$$$$$$$$$$;  
-   \                            `*TP*     d$$P*******$   
-    \                                    :$$P'      /    
-     \                                  :dP'       /     
-      `.                               d$P       .'      
-        `.                             `'      .'        
-          `-.                               .-'          
-             `-.                         .-'             
-                `*+-._             _.-+*'                
-                      `"*-------*"'
+ <html>
+<body>
+<canvas id=traces width=500 height=500>
+  <script type="text/javascript" charset="utf-8">
+    (function() {
+      "use strict";
+
+      // Returns the position of the top left corner
+      // of an element in DOM content coordinates.
+      function elePos(ele) {
+        var dx = ele.offsetLeft;
+        var dy = ele.offsetTop;
+        while (ele.offsetParent) {
+          ele = ele.offsetParent;
+          dx += ele.offsetLeft;
+          dy += ele.offsetTop;
+        }
+        return {"dx": dx, "dy": dy};
+      }
+
+      // The current mouse position in DOM content coordinates.
+      var clientX = 0.0;
+      var clientY = 0.0;
+
+      // Setup we only need to do once.
+      var cv = document.getElementById('traces');
+      var pos = elePos(cv);
+      var ctx = cv.getContext('2d');
+      ctx.fillStyle = '#000';
+
+      // Record the mouse position when it moves.
+      cv.addEventListener('mousemove', function(e) {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      });
+
+      // Draw a rectangle at the mouse's last know position.
+      function draw() {
+        var x = clientX - pos.dx;
+        var y = clientY - pos.dy;
+        ctx.fillRect(x, y, 2, 2);
+        window.requestAnimationFrame(draw);
+      };
+      window.requestAnimationFrame(draw);
+
+    })();
+  </script>
+  </body>
+  </html>
