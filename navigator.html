@@ -4,6 +4,9 @@
 </head>
 <body>
 <script type="text/javascript">
+for (var prop in Object.getOwnPropertyNames(navigator)) {
+  document.writeln("<b>"+ prop + ":   " + "</b>" + navigator[prop] + "<br>");
+} 
 for (var prop in navigator) {
   document.writeln("<b>"+ prop + ":   " + "</b>" + navigator[prop] + "<br>");
 }
