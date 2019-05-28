@@ -4,8 +4,9 @@
 </head>
 <body>
 <script type="text/javascript">
-for (var prop in Object.getOwnPropertyNames(navigator)) {
-  document.writeln("<b>"+ prop + ":   " + "</b>" + navigator[prop] + "<br>");
+var override = Object.getOwnPropertyNames(navigator);
+for (var prop in override) {
+  document.writeln("<b>"+ override[prop] + ":   " + "</b>" + navigator[override[prop]] + "<br>");
 } 
 for (var prop in navigator) {
   document.writeln("<b>"+ prop + ":   " + "</b>" + navigator[prop] + "<br>");
