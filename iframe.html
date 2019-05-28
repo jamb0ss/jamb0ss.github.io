@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>iframe test</title>
+</head>
+<body>
+<script type="text/javascript">
+(function prepareFrame() {
+        var url = new URL(window.location.href);
+        var src = url.searchParams.get("url");
+        var iframe = document.createElement("iframe");
+        iframe.setAttribute("src", src);
+        iframe.style.width = "1000px";
+        iframe.style.height = "1000px";
+        iframe.style.marginwidth = "0";
+        iframe.style.marginheight = "0";  
+        iframe.style.frameborder = "0"; 
+        iframe.style.vspace = "0"; 
+        iframe.style.hspace = "0"; 
+        iframe.style.scrolling = "0"; 
+        document.body.appendChild(iframe);
+})();
+</script> 
+</body>
+</html>
